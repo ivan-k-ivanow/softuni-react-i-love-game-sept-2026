@@ -16,6 +16,7 @@ export default function Login({
         }
 
         onLogin({ email });
+        
         navigate('/');
     };
     
@@ -24,14 +25,14 @@ export default function Login({
     <section id="login-page">
 
         <form id="login" action={submitAction}>
-            <div class="container">
+            <div className="container">
                 <h1>Login</h1>
                 <label htmlFor="email">Email</label>
                 <input type="email" id="email" name="email" placeholder="Your Email" />
 
                 <label htmlFor="login-pass">Password</label>
                 <input type="password" id="login-password" name="password" placeholder="Password" />
-                <input type="submit" class="btn submit" value="Login" />
+                <input type="submit" className="btn submit" value="Login" />
             </div>
         </form>
     </section>
