@@ -27,7 +27,7 @@ function App() {
                 <Route path="/games/:gameId" element={<GameDetails />} />
                 <Route path="games/create" element={<GameCreate />} />
                 <Route path="/register" element={<Register onRegister={userAuthHandler} />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login onLogin={userAuthHandler} />} />
             </Routes>
 
             <Footer />
