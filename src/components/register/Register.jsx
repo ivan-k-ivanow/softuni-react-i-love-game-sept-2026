@@ -7,7 +7,7 @@ export default function Register() {
                 <div className="brand-logo"></div>
                 <h1>Register</h1>
 
-                <label for="email">Email:</label>
+                <label htmlFor="email">Email:</label>
                 <input type="email" id="email" name="email" placeholder="Your Email" />
 
                 <label htmlFor="pass">Password:</label>
