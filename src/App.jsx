@@ -18,7 +18,9 @@ function App() {
 
     return (
         <>
-            <Header />
+            <Header isAuthenticated={!!user} />
+
+
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/catalog" element={<Catalog />} />
