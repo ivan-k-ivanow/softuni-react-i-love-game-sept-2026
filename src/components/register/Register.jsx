@@ -6,11 +6,7 @@ export default function Register() {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
 
-    const registerHandler = (e) => {
-        e.preventDefault();
-
-        // Extract form data
-        const formData = new FormData(e.target);
+    const registerAction = (formData) => {
         const email = formData.get("email");
         const password = formData.get("password");
         const confirmPassword = formData.get("confirm-password");
@@ -30,14 +26,13 @@ export default function Register() {
         setUser({ email });
 
         // Redirect to home page
-        navigate("/");
     };
 
 
     return (
         <>
             <section id="register-page" className="content auth">
-                <form id="register" onSubmit={registerHandler}>
+                <form id="register" action={registerAction}>
                     <div className="container">
                         <div className="brand-logo"></div>
                         <h1>Register</h1>
