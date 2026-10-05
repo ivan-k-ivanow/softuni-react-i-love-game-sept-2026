@@ -7,6 +7,7 @@ import GameCreate from "./components/game-create/GameCreate"
 import Register from "./components/register/Register"
 import Login from "./components/login/Login"
 import { Route, Routes } from "react-router"
+import Logout from "./components/logout/Logout"
 import { useState } from "react";
 
 function App() {
@@ -15,6 +16,11 @@ function App() {
     const userAuthHandler = (userData) => {
         setUser(userData);
     };
+
+    const logoutHandler = () => {
+        setUser(null);
+    };
+
 
     return (
         <>
@@ -28,6 +34,7 @@ function App() {
                 <Route path="games/create" element={<GameCreate />} />
                 <Route path="/register" element={<Register onRegister={userAuthHandler} />} />
                 <Route path="/login" element={<Login onLogin={userAuthHandler} />} />
+                <Route path="/logout" element={<Logout onLogout={userAuthHandler} />} />
             </Routes>
 
             <Footer />
