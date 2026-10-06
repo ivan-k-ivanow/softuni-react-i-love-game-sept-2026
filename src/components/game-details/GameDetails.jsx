@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router";
 import request from "../../utils/request";
+import CreateComment from "../create-comment/CreateComment";
 
-export default function GameDetails() {
+export default function GameDetails({
+    user
+}) {
     const { gameId } = useParams();
     const navigate = useNavigate();
     const [game, setGame] = useState({});
@@ -87,14 +90,10 @@ export default function GameDetails() {
                 </div>
 
             </div>
+
             {/* <!-- Add Comment ( Only for logged-in users, which is not creators of the current game ) --> */}
-            <article className="create-comment">
-                <label>Add new comment:</label>
-                <form className="form">
-                    <textarea name="comment" placeholder="Comment......"></textarea>
-                    <input className="btn submit" type="submit" value="Add Comment" />
-                </form>
-            </article>
+            {user && <CreateComment user={user} gameId={gameId} />}
+
         </section>
     );
 }
