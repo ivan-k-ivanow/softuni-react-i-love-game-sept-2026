@@ -12,10 +12,10 @@ const initialValues = {
 };
 
 export default function GameEdit() {
-    const {gameId} = useParams();
+    const { gameId } = useParams();
     const [game, setGame] = useState(initialValues);
 
-        const changeHandler = (e) => {
+    const changeHandler = (e) => {
         setGame(state => ({
             ...state,
             [e.target.name]: e.target.value
@@ -23,50 +23,50 @@ export default function GameEdit() {
     };
 
     useEffect(() => {
-        // Fetch game details by gameId and populate the form
         request(`/games?id=eq.${gameId}`)
-        // The request returns an array, we take the first element as the game details
             .then(data => setGame(data[0]))
-            .catch(error => {
-                alert(error.message);
-            });
-
     }, [gameId]);
+
+    const editAction = async () => {
+        const result = await request(`/games?id=eq.${gameId}`, 'PATCH', game)
+
+        console.log(result);
+    }
 
     return (
 
         <section id="edit-page">
-            <htmlForm id="add-new-game">
+            <form id="add-new-game" action={editAction}>
                 <div className="container">
 
                     <h1>Edit Game</h1>
 
-                    <div className="htmlForm-group-half">
+                    <div className="form-group-half">
                         <label htmlFor="gameName">Game Name:</label>
                         <input type="text" id="gameName" name="title" placeholder="Enter game title..." value={game.title} onChange={changeHandler} />
                     </div>
 
-                    <div className="htmlForm-group-half">
+                    <div className="form-group-half">
                         <label htmlFor="genre">Genre:</label>
                         <input type="text" id="genre" name="genre" placeholder="Enter game genre..." value={game.genre} onChange={changeHandler} />
                     </div>
 
-                    <div className="htmlForm-group-half">
+                    <div className="form-group-half">
                         <label htmlFor="activePlayers">Active Players:</label>
                         <input type="number" id="activePlayers" name="activePlayers" min="0" placeholder="0" value={game.activePlayers} onChange={changeHandler} />
                     </div>
 
-                    <div className="htmlForm-group-half">
+                    <div className="form-group-half">
                         <label htmlFor="releaseDate">Release Date:</label>
                         <input type="date" id="releaseDate" name="releaseDate" value={game.releaseDate} onChange={changeHandler} />
                     </div>
 
-                    <div className="htmlForm-group-full">
+                    <div className="form-group-full">
                         <label htmlFor="imageUrl">Image URL:</label>
                         <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter image URL..." value={game.imageUrl} onChange={changeHandler} />
                     </div>
 
-                    <div className="htmlForm-group-full">
+                    <div className="form-group-full">
                         <label htmlFor="summary">Summary:</label>
                         <textarea name="summary" id="summary" rows="5"
                             placeholder="Write a brief summary..." value={game.summary} onChange={changeHandler}></textarea>
@@ -74,7 +74,7 @@ export default function GameEdit() {
 
                     <input className="btn submit" type="submit" value="EDIT GAME" />
                 </div>
-            </htmlForm>
+            </form>
         </section>
 
     );
