@@ -9,3 +9,11 @@ export const login = async ({email, password}) => {
     return authRequest("/token?grant_type=password", "POST", { email, password });
 };
 
+export const logout = async (accessToken) => {
+    // Implement the logout logic with Supabase or any other auth service
+    return authRequest("/logout", "POST", null, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+};

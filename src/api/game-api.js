@@ -16,6 +16,14 @@ export const create = (data, accessToken) => {
     });
 }
 
+export const edit = (gameId, data, accessToken) => {
+    return request(`/games?id=eq.${gameId}`, "PATCH", data, {
+        headers: {
+            ...getAuthHeaders(accessToken)
+        }
+    });
+}
+
 export const remove = async (gameId, accessToken) => {
     return request(`/games?id=eq.${gameId}`, "DELETE", null, {
         headers: {

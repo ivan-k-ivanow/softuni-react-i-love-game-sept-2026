@@ -42,8 +42,13 @@ function App() {
     };
 
 
-    const logoutHandler = () => {
-        setAuth(null);
+    const logoutHandler = async () => {
+        try {
+            await authApi.logout(auth?.access_token);
+            setAuth(null);
+        } catch (error) {
+            alert("Logout failed: " + error.message);
+        }
     };
 
     const contextValue = { 
@@ -52,6 +57,7 @@ function App() {
         isAuthenticated: !!auth,
         login,
         register,
+        logout: logoutHandler,
     };
 
     return (
@@ -68,7 +74,7 @@ function App() {
                 <Route path="/games/:gameId/edit" element={<GameEdit />} />
                 <Route path="/register" element={<Register onRegister={register} />} />
                 <Route path="/login" element={<Login onLogin={login} />} />
-                <Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
+                <Route path="/logout" element={<Logout />} />
             </Routes>
 
             <Footer />

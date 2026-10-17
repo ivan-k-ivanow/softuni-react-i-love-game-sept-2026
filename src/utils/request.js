@@ -49,7 +49,7 @@ async function baseRequest(url, path = "/", method = "GET", data = null, opts = 
         throw new Error(`Request failed with status ${response.status}`);
     }
 
-    if ([204, 201].includes(response.status)) {
+    if ( response.status === 204 ) {
         return null;
     }
 

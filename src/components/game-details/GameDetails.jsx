@@ -73,10 +73,12 @@ export default function GameDetails() {
 
 
                 {/* <!-- Edit/Delete buttons ( Only for creator of this game )  --> */}
+                {user && user.id === game.user_id && (
                 <div className="buttons">
                     <Link to={`/games/${gameId}/edit`} className="button">Edit</Link>
                     <a href="#" className="button" onClick={deleteGameClickHandler} >Delete</a>
                 </div>
+                )}
 
             <CommentList gameId={gameId} refresh={refresh} />
 

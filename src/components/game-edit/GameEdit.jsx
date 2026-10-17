@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router";
 import request from "../../utils/request";
+import { gameApi } from "../../api";
+import  AuthContext  from "../../contexts/auth-context";
 
 const initialValues = {
     title: "",
@@ -12,8 +14,10 @@ const initialValues = {
 };
 
 export default function GameEdit() {
+    const {accessToken} = useContext(AuthContext);
     const { gameId } = useParams();
     const [game, setGame] = useState(initialValues);
+    const navigate = useNavigate();
 
     const changeHandler = (e) => {
         setGame(state => ({
@@ -28,9 +32,8 @@ export default function GameEdit() {
     }, [gameId]);
 
     const editAction = async () => {
-        const result = await request(`/games?id=eq.${gameId}`, 'PATCH', game)
-
-        console.log(result);
+        await gameApi.edit(gameId, game, accessToken);
+        navigate("/catalog");
     }
 
     return (
