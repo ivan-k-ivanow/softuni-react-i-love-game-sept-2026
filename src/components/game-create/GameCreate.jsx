@@ -1,6 +1,8 @@
-import { useState } from "react";
-import request, {uploadFile} from "../../utils/request";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router";
+import { gameApi } from "../../api";
+import AuthContext from "../../contexts/auth-context";
+
 
 const initialValues = {
     title: "",
@@ -12,9 +14,8 @@ const initialValues = {
 };
 
 export default function GameCreate() {
+    const { accessToken } = useContext(AuthContext);
     const [values, setValues] = useState(initialValues);
-    const [isFileUpload, setIsFileUpload] = useState();
-    const [previewUrl, setPreviewUrl] = useState(null); 
     const navigate = useNavigate();
 
     const changeHandler = (e) => {
@@ -24,22 +25,10 @@ export default function GameCreate() {
         }));
     };
 
-    const submitAction = async (formData) => {
-        const file = formData.get("image");
-        let imageUrl = values.imageUrl;
-
-        if (file) {
-            const fileName = file.name;
-            imageUrl = await uploadFile(fileName, file);
-        }
+    const submitAction = async () => {
 
         try {
-            await request("/games", "POST", {
-                ...values,
-                activePlayers: Number(values.activePlayers),
-                imageUrl
-            });
-
+            await gameApi.create(values, accessToken)
             navigate('/catalog');
         } catch (error) {
             alert(error.message);
@@ -47,12 +36,6 @@ export default function GameCreate() {
 
     }
 
-    const fileChangeHandler = (e) => {
-        // Get file metadata on change
-        const file = e.target.files[0];
-        const previewUrl = URL.createObjectURL(file);
-        setPreviewUrl(previewUrl);
-    };
     return (
 
         <section id="add-page">
@@ -82,22 +65,9 @@ export default function GameCreate() {
                     </div>
 
                     <div className="form-group-half">
-                        <label htmlFor="toggleFileUpload">Set File Upload</label>
-                        <input type="checkbox" id="toggleFileUpload" name="toggleFileUpload" checked={isFileUpload} onChange={() => setIsFileUpload(!isFileUpload)} />
+                        <label htmlFor="imageUrl">Image URL:</label>
+                        <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter image URL..." value={values.imageUrl} onChange={changeHandler} />
                     </div>
-
-                    {isFileUpload ? (
-                        <div className="form-group-half">
-                            <label htmlFor="fileUpload">Upload File:</label>
-                            <input type="file" id="fileUpload" name="image" onChange={fileChangeHandler} />
-                            <img src={previewUrl} alt="Preview" />
-                        </div>
-                    ) : (
-                        <div className="form-group-half">
-                            <label htmlFor="imageUrl">Image URL:</label>
-                            <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter image URL..." value={values.imageUrl} onChange={changeHandler} />
-                        </div>
-                    )}
 
 
 
