@@ -12,6 +12,7 @@ import { useState } from "react";
 import GameEdit from "./components/game-edit/GameEdit"
 import { authApi } from "./api"
 import { useNavigate } from "react-router"; 
+import AuthContext from "./contexts/auth-context"
 
 function App() {
     const [auth, setAuth] = useState(null);
@@ -47,9 +48,17 @@ function App() {
         setAuth(null);
     };
 
+    const contextValue = { 
+        accessToken: auth?.access_token,
+        user: auth?.user,
+        isAuthenticated: !!auth,
+        login,
+        register,
+    };
 
     return (
         <>
+        <AuthContext.Provider value={contextValue}>
             <Header isAuthenticated={!!auth} />
 
 
@@ -65,6 +74,7 @@ function App() {
             </Routes>
 
             <Footer />
+        </AuthContext.Provider>
         </>
     )
 }
