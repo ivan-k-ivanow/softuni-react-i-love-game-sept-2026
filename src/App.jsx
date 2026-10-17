@@ -22,7 +22,6 @@ function App() {
         // authenticate with supabase auth
         try {
             const result = await authApi.register(userData);
-            alert("Registration successful!");
             setAuth(result);
             // Redirect to home page
             navigate("/");
@@ -34,8 +33,7 @@ function App() {
 
     const login = async (userData) => {
         try {
-            const result = await authApi.login(userData);
-            alert("Login successful!");
+            const result = await authApi.login(userData);;
             setAuth(result);
             navigate("/");
         } catch (error) {
