@@ -25,11 +25,13 @@ export async function uploadFile(fileName, file) {
 
 async function baseRequest(url, path = "/", method = "GET", data = null, opts = {}) {
     const options = {
+         ...opts,
         headers: {
+            ...opts.headers,
             apiKey: import.meta.env.VITE_API_KEY,
             Prefer: "return=representation"
         },
-        ...opts
+       
     };
 
     if (method !== "GET") {
