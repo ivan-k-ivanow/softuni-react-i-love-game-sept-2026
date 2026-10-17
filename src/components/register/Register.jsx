@@ -23,7 +23,7 @@ export default function Register({
         }
 
         // Set the user state (for demonstration purposes)
-        onRegister({ email });
+        onRegister({ email, password });
 
         // Redirect to home page
         navigate("/");
