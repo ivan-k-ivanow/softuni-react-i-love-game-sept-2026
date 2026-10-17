@@ -8,3 +8,4 @@ export const login = async ({email, password}) => {
     // Implement the login logic with Supabase or any other auth service
     return authRequest("/token?grant_type=password", "POST", { email, password });
 };
+
