@@ -15,9 +15,7 @@ export default function Login({
             return;
         }
 
-        onLogin({ email });
-        
-        navigate('/');
+        onLogin({ email, password });
     };
     
     return (

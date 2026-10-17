@@ -2,10 +2,8 @@ import { useNavigate } from "react-router";
 
 
 export default function Register({
-    onRegister,    
+    onRegister,
 }) {
-    const navigate = useNavigate();
-
     const registerAction = (formData) => {
         const email = formData.get("email");
         const password = formData.get("password");
@@ -24,9 +22,6 @@ export default function Register({
 
         // Set the user state (for demonstration purposes)
         onRegister({ email, password });
-
-        // Redirect to home page
-        navigate("/");
     };
 
 
